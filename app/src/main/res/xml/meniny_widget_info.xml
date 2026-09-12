@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Vychodzia velkost je 4 bunky na sirku a 3 na vysku (~180x180dp): pri nej sa
+  ukaze dnesok a asi styri dalsie dni. Roztiahnutim pribudaju riadky, provider
+  si ich pocet dopocitava z vysky.
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="180dp"
+    android:minHeight="110dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="80dp"
+    android:targetCellWidth="4"
+    android:targetCellHeight="3"
+    android:description="@string/widget_popis"
+    android:initialLayout="@layout/widget_meniny"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:updatePeriodMillis="21600000" />

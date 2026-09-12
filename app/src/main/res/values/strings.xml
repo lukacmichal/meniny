@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Meniny</string>
+
+    <string name="hladaj">Hľadať meno…</string>
+    <string name="dnes">Dnes</string>
+    <string name="zajtra">Zajtra</string>
+    <string name="ziadne_meno">V tento deň nikto nemá meniny</string>
+
+    <string name="nic_sa_nenaslo">Nič sa nenašlo</string>
+    <string name="vycisti">Zrušiť hľadanie</string>
+    <string name="nastavenia">Nastavenia</string>
+    <string name="obnovit">Obnoviť</string>
+    <string name="dnes_znacka">DNES</string>
+    <string name="skontroluj_verziu">Skontrolovať novú verziu</string>
+
+    <string name="ver_footer">%1$s %2$s · NAS %3$s</string>
+    <string name="ver_footer_new">%1$s %2$s · NAS %3$s ↑</string>
+    <string name="ver_none">—</string>
+
+    <string-array name="dni_v_tyzdni">
+        <item>pondelok</item><item>utorok</item><item>streda</item>
+        <item>štvrtok</item><item>piatok</item><item>sobota</item><item>nedeľa</item>
+    </string-array>
+
+    <string-array name="mesiace_genitiv">
+        <item>januára</item><item>februára</item><item>marca</item><item>apríla</item>
+        <item>mája</item><item>júna</item><item>júla</item><item>augusta</item>
+        <item>septembra</item><item>októbra</item><item>novembra</item><item>decembra</item>
+    </string-array>
+
+    <!-- ── sledovani oslavenci ──────────────────────────────────────────── -->
+    <string name="oslavenci">Oslávenci</string>
+    <string name="osl_pridat">Pridať človeka</string>
+    <string name="osl_zmazat">Zmazať</string>
+    <string name="osl_zmazat_otazka">Vyradiť %1$s zo zoznamu?</string>
+    <string name="osl_zrusit">Zrušiť</string>
+    <string name="osl_ulozit">Uložiť</string>
+    <string name="osl_prazdne">Zatiaľ tu nikto nie je.
+
+Pridaj človeka tlačidlom + alebo ťuknutím na deň v zozname menín.</string>
+    <string name="osl_novy">Nový oslávenec</string>
+    <string name="osl_uprava">Upraviť</string>
+    <string name="osl_meno">Meno</string>
+    <string name="osl_sledovat_meniny">Sledovať meniny</string>
+    <string name="osl_meniny_dna">Meniny: %1$s</string>
+    <string name="osl_iny_den">Vybrať iný deň menín</string>
+    <string name="osl_sledovat_narodeniny">Sledovať narodeniny</string>
+    <string name="osl_narodeniny_dna">Narodeniny: %1$s</string>
+    <string name="osl_narodeniny_dna_rok">Narodeniny: %1$s %2$d</string>
+    <string name="osl_datum_narodenia">Vybrať dátum narodenia</string>
+    <string name="osl_pocitat_vek">Počítať vek z roku narodenia</string>
+    <string name="osl_neuplny">Treba meno a aspoň jeden dátum — meniny alebo narodeniny.</string>
+    <string name="osl_r_meniny">meniny %1$s</string>
+    <string name="osl_r_narodeniny">narodeniny %1$s</string>
+    <string name="osl_r_narodeniny_rok">narodeniny %1$s %2$d</string>
+    <string name="osl_stav_zapnute">Upozornenie chodí o %1$s. Zmeniť v Nastaveniach.</string>
+    <string name="osl_stav_vypnute">Upozornenia sú vypnuté. Zapnúť v Nastaveniach.</string>
+    <string name="osl_pridat_koho">Koho si dať pripomenúť?</string>
+    <string name="osl_uz_je">%1$s už v zozname je.</string>
+    <string name="osl_pridany">Pridané: %1$s</string>
+    <string name="osl_den_bez_mena">V tento deň niet koho pridať — nikto nemá meniny.</string>
+
+    <!-- "o 2 dni" vs. "o 5 dní"; jednotku a dvojku rieši kód slovami
+         (dnes/zajtra), takže tu ide len o zvyšok. -->
+    <plurals name="osl_o_dni">
+        <item quantity="one">o %1$d deň</item>
+        <item quantity="few">o %1$d dni</item>
+        <item quantity="many">o %1$d dňa</item>
+        <item quantity="other">o %1$d dní</item>
+    </plurals>
+
+    <!-- ── upozornenie ──────────────────────────────────────────────────── -->
+    <string name="prip_sekcia">Pripomienky</string>
+    <string name="prip_popis">Raz denne v nastavenom čase príde upozornenie, keď niekto zo zoznamu oslávencov má meniny alebo narodeniny. Keď nikto neoslavuje, nepríde nič.</string>
+    <string name="prip_zapnut">Upozorniť, keď niekto oslavuje</string>
+    <string name="prip_cas">Čas upozornenia: %1$s</string>
+    <string name="prip_koho">Koho pripomínať</string>
+    <string name="prip_skusit">Skúsiť upozornenie teraz</string>
+    <string name="prip_dnes_nikto">Dnes nikto zo zoznamu neoslavuje, takže niet čo ukázať.</string>
+    <string name="prip_bez_povolenia">Bez povolenia upozorňovať pripomienky neprídu. Povoľ ich v systémových nastaveniach appky.</string>
+    <string name="prip_nadpis">Dnes sa oslavuje</string>
+    <string name="prip_meniny">%1$s má meniny</string>
+    <string name="prip_narodeniny">%1$s má narodeniny</string>
+    <string name="prip_narodeniny_vek">%1$s má %2$d. narodeniny</string>
+    <string name="prip_kanal">Oslávenci</string>
+    <string name="prip_kanal_popis">Denné upozornenie, keď niekto zo zoznamu oslavuje.</string>
+
+    <!-- Narodeniny vo widgete; tortička je tu a nie v .kt kvôli kódovaniu. -->
+    <string name="widget_popis">Dnešné meniny a najbližšie dni</string>
+
+    <string name="up_sekcia">Aktualizácie</string>
+
+    <string name="up_check">Skontrolovať teraz</string>
+    <string name="up_downloading">Sťahujem z NAS-u…</string>
+    <string name="up_latest">Máš najnovšiu verziu (%1$d).</string>
+    <string name="up_prompt_title">Nová verzia</string>
+    <string name="up_new">Na NAS-e je verzia %1$s, máš %2$s. Nainštalovať teraz?</string>
+    <string name="up_bad_apk">Stiahnutý súbor sa nedá prečítať ako APK.</string>
+    <string name="up_error">Chyba: %1$s</string>
+    <string name="up_install">Nainštalovať</string>
+    <string name="up_later">Neskôr</string>
+
+    <!-- Polia nastaveni self-updatu. Popisky zhodne so `stocks` a `askener`
+         (docs/shared-standard.md 2.6) — kto ich raz vyplnil, najde ich rovnako. -->
+    <string name="up_host">Adresa NAS-u</string>
+    <string name="up_share">Zdieľaný priečinok</string>
+    <string name="up_path">Podpriečinok appky</string>
+    <string name="up_file">Názov súboru</string>
+    <string name="up_user">SMB meno</string>
+    <string name="up_pass">SMB heslo</string>
+    <string name="up_ulozit">Uložiť</string>
+    <string name="up_ulozene">Uložené</string>
+    <string name="up_skontrolovat">Skontrolovať aktualizáciu teraz</string>
+    <string name="up_stav">Verzia %1$s (%2$d)
+Aktualizuje sa z: %3$s</string>
+    <string name="up_need_perm">Najprv povoľ „Inštalovať neznáme aplikácie", potom skús znova.</string>
+    <!-- Oslávenec v pravom stĺpci zoznamu — bez slovesa, nech sa zmestí. -->
+    <string name="osl_riadok">%1$s · %2$s</string>
+    <string name="osl_meniny">meniny</string>
+    <string name="osl_narodeniny">narodeniny</string>
+    <string name="osl_narodeniny_vek">%1$d. narodeniny</string>
+
+    <!-- ── nastavenia (spoločný tvar, docs/shared-standard.md 2.8) ──────────────────── -->
+    <string name="n_spat">Späť</string>
+    <string name="n_zobraz_hesla">Zobraziť heslá</string>
+    <string name="n_sekcia_zaloha">Záloha nastavení</string>
+    <string name="n_sekcia_nas">Server (aktualizácia appky)</string>
+    <string name="n_sekcia_verzia">Verzia</string>
+
+    <string name="n_zaloha_popis">Uloží sledovaných oslávencov, čas pripomienky a adresu NAS-u do jedného súboru. Kalendár mien je v appke a po preinštalovaní sa vráti sám — oslávenci nie, tí sú jediné, čo si tu zadávaš ručne. Heslá v súbore nie sú. Import zoznam nahradí, nie doplní.</string>
+    <string name="n_export">Exportovať…</string>
+    <string name="n_import">Importovať…</string>
+    <string name="n_export_ok">Uložené — %1$d oslávencov.</string>
+    <string name="n_import_ok">Naimportované — %1$d oslávencov. Nezabudni Uložiť, ak si dolu niečo menil.</string>
+    <string name="n_zaloha_chyba">Nepodarilo sa: %1$s</string>
+
+    <string name="n_nas_popis">Odtiaľto si appka sťahuje vlastné aktualizácie. Je to zdieľaný priečinok na NAS-e (SMB), nie internet — mimo domu sa kontrola ticho preskočí. Prázdne pole znamená „použi to, s čím bola appka zbuildovaná“.</string>
+    <string name="n_host_popis">IP alebo meno NAS-u v domácej sieti, napr. nas.local.</string>
+    <string name="n_share_popis">Zdieľaný priečinok na NAS-e, v ktorom sú appky. U nás Android.</string>
+    <string name="n_path_popis">Podpriečinok tejto appky v tom share-i. U nás Meniny.</string>
+    <string name="n_file_popis">Názov APK súboru. Meno je pevné a pri každom vydaní sa prepíše; verziu appka číta z APK, nie z názvu.</string>
+    <string name="n_user_popis">Meno SMB účtu, ktorý má na NAS-e prístup k tomu priečinku.</string>
+    <string name="n_pass_popis">Heslo k tomu SMB účtu. Leží v šifrovanom úložisku telefónu a do zálohy sa nedostane.</string>
+
+    <!-- ── vzhľad (spoločné pre všetky appky, docs/shared-standard.md 2.8) ──────────── -->
+    <string name="n_sekcia_vzhlad">Vzhľad</string>
+    <string name="n_vzhlad_popis">Nočný režim maľuje pozadie načierno. Na OLED displeji (má ho väčšina novších telefónov) sa čierny pixel vôbec nerozsvieti, takže to naozaj šetrí batériu — pri prevažne bielej obrazovke ide o desiatky percent spotreby displeja. Veľkosť písma sa pripočítava k tomu, čo máš nastavené v systéme.</string>
+    <string name="n_rezim">Režim</string>
+    <string name="n_rezim_system">Podľa systému</string>
+    <string name="n_rezim_svetly">Svetlý</string>
+    <string name="n_rezim_cierny">Čierny (šetrí batériu)</string>
+    <string name="n_pismo">Veľkosť písma</string>
+    <string name="n_pismo_zaklad">základná</string>
+    <string name="n_pismo_menej">menšie o 1</string>
+    <string name="n_pismo_viac">väčšie o %1$d</string>
+    <string name="n_pismo_popis">Krok je zhruba jeden bod. Platí len v appke — widget má vlastnú veľkosť nižšie.</string>
+    <string name="n_pismo_widget">Veľkosť písma vo widgete</string>
+    <string name="n_pismo_widget_popis">Widget na ploche má vlastnú veľkosť: číta sa z väčšej diaľky a väčšie písmo mu ubralo riadky.</string>
+</resources>

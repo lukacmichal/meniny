@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Koho appka pripomina. Hlavicka drzi spolocny tvar (nazov vlavo, akcia vpravo,
+  viz docs/shared-standard.md 2.6); ozubene koliesko tu nie je, lebo toto UZ je
+  podobrazovka nastaveni.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/pozadie">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:id="@+id/hlavicka_nazov"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/oslavenci"
+            android:textColor="@color/text_hlavny"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/pridaj"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/osl_pridat"
+            android:src="@drawable/ic_pridat" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/prazdne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:lineSpacingExtra="4dp"
+        android:text="@string/osl_prazdne"
+        android:textColor="@color/text_vedlajsi" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/ciara" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/zoznam"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/spodok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/ver_text" />
+</LinearLayout>

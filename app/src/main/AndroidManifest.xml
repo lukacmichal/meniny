@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Sietove opravnenia su len kvoli self-updatu z NAS-u; kalendar menin
+         je v APK a appka kvoli nemu na siet nechodi nikdy. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!-- Widget sa musi prekreslit aj po restarte telefonu a naplanovany budik
+         na pripomienku restart neprezije — treba ho po nom nastavit znova. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Od Androidu 13 sa upozornenia pytaju zvlast; do 12 vratane staci toto. -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Meniny">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".MeninyWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <!-- Prichadza o polnoci; bez toho by widget dlho ukazoval vcerajsok. -->
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/meniny_widget_info" />
+        </receiver>
+
+        <!--
+            Obsah rolovatelneho zoznamu dni vo widgete (30. 8. 2026).
+            BIND_REMOTEVIEWS je povinne: bez neho by sa k sluzbe mohla pripojit
+            ktorakolvek appka.
+        -->
+        <service
+            android:name=".DniService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <!-- Odovzdanie stiahnuteho APK instalatoru pri self-update. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".NastaveniaActivity"
+            android:exported="false"
+            android:label="@string/nastavenia" />
+
+        <activity
+            android:name=".OslavenciActivity"
+            android:exported="false"
+            android:label="@string/oslavenci" />
+
+        <!-- Budik pripomienky. Zvoni cez vlastnu akciu (explicitny intent,
+             preto nie je v intent-filtri); filter je len na udalosti, po ktorych
+             sa naplanovany budik straca. -->
+        <receiver
+            android:name=".PripomienkaReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ver_text">#6B7280</color>
+    <color name="ver_warn">#B45309</color>
+
+    <color name="pozadie">#FFFFFF</color>
+    <color name="text_hlavny">#111827</color>
+    <color name="text_vedlajsi">#6B7280</color>
+    <color name="zvyraznenie">#7C3AED</color>
+    <color name="sviatok">#B45309</color>
+    <color name="widget_pozadie">#F3F4F6</color>
+
+    <!-- Ikona na plochu (adaptivna, minSdk 26 = staci mipmap-anydpi-v26). -->
+    <color name="ic_launcher_background">#3B1F5C</color>
+    <color name="ic_launcher_foreground_fill">#F3F4F6</color>
+    <color name="ic_launcher_den">#F59E0B</color>
+
+    <!-- Farba ikon v hlavicke (obnovit, nastavenia, lupa). Meno je vo vsetkych
+         appkach rovnake, hodnota podla palety - viz docs/shared-standard.md 2.6. -->
+    <color name="ikona">#6B7280</color>
+
+    <!-- Oslava sledovaneho cloveka: v zozname aj vo widgete rovnaka farba,
+         nech sa da "dnes niekto moj slavi" spoznat na prvy pohlad. -->
+    <color name="oslava">#B45309</color>
+
+    <!-- Ciara medzi riadkami widgetu. Tmavsia nez `ciara` v appke: kresli sa
+         na sedom pozadi widgetu, kde by sa svetlejsia stratila. -->
+    <color name="widget_ciara">#D1D5DB</color>
+
+    <!-- Oddeleny ramcek hladania a zvyrazneny dnesok. -->
+    <color name="pole_pozadie">#F3F4F6</color>
+    <color name="ciara">#E5E7EB</color>
+    <color name="dnes_pozadie">#F5F3FF</color>
+</resources>

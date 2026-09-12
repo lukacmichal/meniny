@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Jeden den v rolovatelnom zozname widgetu: vlavo datum a mena, VPRAVO
+  oslavenec.
+
+  Pravy stlpec ma pevny `maxWidth`, aby sa zlom mien vlavo nemenil podla dlzky
+  mena vpravo — inak by sa riadky pri rolovani "hybali".
+
+  Farby aj velkosti pisma prepise [DniFactory] vyslovne: widget kresli
+  launcher, takze `values-night` sa v nom riadi telefonom a `fontScale`
+  z kontextu appky nepocuva vobec.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/d_ciara"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/widget_ciara"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:baselineAligned="false">
+
+        <TextView
+            android:id="@+id/d_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:textColor="@color/text_hlavny" />
+
+        <TextView
+            android:id="@+id/d_oslavenec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:maxWidth="140dp"
+            android:gravity="end"
+            android:textAlignment="viewEnd"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/oslava" />
+    </LinearLayout>
+</LinearLayout>

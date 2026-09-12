@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Sem SmbUpdater uklada stiahnute APK (ApkInstaller.downloadTarget). -->
+    <cache-path
+        name="updates"
+        path="updates/" />
+</paths>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sipka spat do hlavicky. Appky bezia na NoActionBar teme, takze systemova
+  sipka neexistuje a kazda podobrazovka si ju musi nakreslit sama.
+  Tvar aj hrubka su rovnake ako pri ostatnych ikonach v hlavicke (24dp, tah 2).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="@color/ikona">
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M19,12 H5 M11,18 L5,12 L11,6" />
+</vector>

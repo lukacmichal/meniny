@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Kostra podla spolocnej sablony vsetkych appiek (docs/shared-standard.md 2.6):
+  hlavicka s nazvom a ikonami vpravo, obsah s potiahnutim na obnovu,
+  paticka s verziou uplne dole.
+
+  Vyhladavanie je vlastny ohraniceny prvok s lupou, nie holy riadok textu.
+  Predtym to bol EditText splyvajuci s pozadim a nedalo sa uhadnut, ze je to
+  pole na hladanie — vyzeralo to ako nadpis obrazovky.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/pozadie">
+
+    <!-- ── hlavicka ─────────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="6dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:id="@+id/hlavicka_nazov"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/app_name"
+            android:textColor="@color/text_hlavny"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!--
+          Vlastna akcia appky ostava textom, spolocne ikony su vpravo od nej
+          (docs/shared-standard.md 2.6). Sem sa pridavaju ludia, ktorych ma appka pripomenut
+          — bez toho by tato funkcia bola schovana v Nastaveniach a nikto by
+          netusil, ze existuje.
+        -->
+        <Button
+            android:id="@+id/oslavenci"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/zvyraznenie"
+            android:text="@string/oslavenci" />
+
+        <ImageButton
+            android:id="@+id/obnov"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/obnovit"
+            android:src="@drawable/ic_obnovit" />
+
+        <ImageButton
+            android:id="@+id/nastavenia_ikona"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/nastavenia"
+            android:src="@drawable/ic_nastavenia" />
+    </LinearLayout>
+
+    <!-- ── vyhladavanie ─────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="4dp"
+        android:background="@drawable/pole_hladania">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/hladaj"
+            android:src="@drawable/ic_lupa" />
+
+        <EditText
+            android:id="@+id/hladanie"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:paddingStart="10dp"
+            android:paddingVertical="12dp"
+            android:hint="@string/hladaj"
+            android:textColorHint="@color/text_vedlajsi"
+            android:inputType="textPersonName"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:autofillHints=""
+            android:textSize="16sp"
+            android:textColor="@color/text_hlavny" />
+
+        <ImageButton
+            android:id="@+id/zrus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/vycisti"
+            android:src="@drawable/ic_zrusit" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/ciara" />
+
+    <TextView
+        android:id="@+id/prazdne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/nic_sa_nenaslo"
+        android:textColor="@color/text_vedlajsi" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/potiahni"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/zoznam"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/verzia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:textColor="@color/ver_text" />
+</LinearLayout>

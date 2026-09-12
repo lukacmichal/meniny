@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Čierny (nočný) režim. Mená sú tie isté ako vo `values/colors.xml` — kód farbu
+  nikdy neurčuje sám, vždy siaha na meno, takže prepnutie režimu nemá ako
+  rozbiť čitateľnosť.
+
+  Pozadie je ČISTÁ čierna #000000, nie tmavosivá. Celý zmysel tohto režimu je
+  výdrž batérie na OLED displeji: čierny pixel sa nerozsvieti vôbec, tmavosivý
+  svieti takmer ako biely.
+
+  Fialová a jantárová sú svetlejšie odtiene než v dennom režime — tie denné sú
+  na čiernom pozadí tmavé a splývajú.
+-->
+<resources>
+    <color name="pozadie">#000000</color>
+    <color name="text_hlavny">#E5E7EB</color>
+    <color name="text_vedlajsi">#9CA3AF</color>
+    <color name="zvyraznenie">#A78BFA</color>
+    <color name="sviatok">#FBBF24</color>
+    <color name="oslava">#FBBF24</color>
+
+    <!-- Widget leží na tapete, nie na pozadí appky. Čierna je aj tu správne:
+         widget býva na obrazovke dlhšie než appka. -->
+    <color name="widget_pozadie">#000000</color>
+    <color name="widget_ciara">#2A2A2A</color>
+
+    <color name="ikona">#9CA3AF</color>
+
+    <color name="pole_pozadie">#0E0E0E</color>
+    <color name="ciara">#262626</color>
+    <color name="dnes_pozadie">#1A1030</color>
+
+    <color name="ver_text">#9CA3AF</color>
+    <color name="ver_warn">#FBBF24</color>
+</resources>

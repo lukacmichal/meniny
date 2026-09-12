@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Widget na plochu: dnesok velkym pismom a dalsie dni pod nim.
+
+  Data su offline (asset v APK), takze widget funguje aj bez signalu — presne
+  preto sa kalendar nesahuje zo siete.
+
+  **Zoznam dalsich dni sa roluje PRSTOM** (30. 8. 2026). Do vtedy mal pevnych
+  dvanast riadkov a posledny sa na ploche orezaval napoly; sipky ↑ ↓ boli len
+  nahrada. Zadanie znelo inak: „ked prstom kliknem do toho widgetu, tak mozem
+  s nim hybat hore a dole". Zoznam je preto skutocna `ListView` plnena cez
+  `RemoteViewsService` ([DniService]) a layout uz nie je generovany skriptom.
+
+  Dnesok ostava NAD zoznamom a neroluje sa s nim: widget je predovsetkym o tom,
+  kto ma meniny dnes, a to nema odrolovat prec.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/w_koren"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/widget_pozadie">
+
+    <TextView
+        android:id="@+id/w_dnes_datum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textAllCaps="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@color/text_vedlajsi" />
+
+    <!-- Dnesok: mena vlavo, oslavenec vpravo — rovnako ako v zozname appky. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/w_dnes_mena"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/zvyraznenie" />
+
+        <TextView
+            android:id="@+id/w_dnes_oslavenci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:maxWidth="150dp"
+            android:gravity="end"
+            android:textAlignment="viewEnd"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:visibility="gone"
+            android:textColor="@color/oslava" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/w_prazdno"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="13sp"
+        android:textColor="@color/text_vedlajsi" />
+
+    <ListView
+        android:id="@+id/w_dni"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="6dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:scrollbars="none" />
+</LinearLayout>

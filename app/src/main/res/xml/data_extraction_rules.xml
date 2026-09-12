@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nastavenia appky sa nezalohuju a neprenasaju na iny telefon.
+
+  Dovod: `wol_secret` drzi heslo k NAS-u a token k wakeserveru. `allowBackup="false"`
+  rieti zalohu do cloudu, ale device-transfer (Android 12+) ide mimo neho — bez
+  tychto pravidiel by sa prefs skopirovali na novy telefon aj s heslom.
+
+  Strata je len kozmeticka: adresa NAS-u, zoznam strojov a heslo sa po instalacii
+  zadaju znova v Nastaveniach.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="." />
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="." />
+    </device-transfer>
+</data-extraction-rules>

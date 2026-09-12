@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Meniny" parent="Theme.AppCompat.DayNight.NoActionBar" />
+
+    <!--
+      Riadok widgetu = ciara + text. Ciara je nad textom, takze prva zaroven
+      oddeluje dnesok od zoznamu dalsich dni. Cely blok sa skryva naraz, ked
+      sa riadok do widgetu nezmesti.
+    -->
+    <!--
+      Styly generovaneho zoznamu (WidgetRiadokBox, WidgetRiadok,
+      WidgetOslavenec…) su od 30. 8. 2026 prec: widget uz nema pevne riadky
+      v layoute, plni ho `DniService` do `ListView` a riadok ma vlastny layout
+      `item_widget_den.xml`.
+    -->
+</resources>

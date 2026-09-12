@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Kalendarny listok: v hlavicke skratka mesiaca, pod nou cislo dna.
+
+  Prekreslene 27. 8. 2026 (druhy raz v ten den) — dovod bol jednoduchy:
+  v hlavicke sedela farebna GULA ako "dnesny den". Kalendar ale den ukazuje
+  CISLOM, nie gulou, takze ikonka nevyzerala ako kalendar, ale ako listok
+  s bodkou. Teraz je tam text.
+
+  Napis je zamerne "FEB 31" — taky datum neexistuje a je to vtip, nie chyba.
+  Kto by to chcel niekedy zmenit na skutocny datum, meni len tieto dve
+  skupiny ciest dole; geometria listka ostava.
+
+  Pisme sa kresli ako TAHY (strokeColor + strokeWidth), nie ako vyplnene
+  obrysy: v tejto velkosti (vyska pisma 8, resp. 20 zo 108) su tahy citatelne
+  a cesty ostanu take kratke, aby sa dali rucne skontrolovat.
+
+  Mierka sa drzi kruhovej masky rovnako ako predtym: kruh ma polomer 36 od
+  stredu (54,54), listok 32..76 x 30..78 ma najvzdialenejsi roh 32,6.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Kruzky hore. Kreslia sa PRED listkom, aby ich spodok listok prekryl. -->
+    <path
+        android:fillColor="@color/ic_launcher_foreground_fill"
+        android:pathData="M43,24 a3,3 0 0 1 3,3 v6 a3,3 0 0 1 -6,0 v-6 a3,3 0 0 1 3,-3 z" />
+    <path
+        android:fillColor="@color/ic_launcher_foreground_fill"
+        android:pathData="M65,24 a3,3 0 0 1 3,3 v6 a3,3 0 0 1 -6,0 v-6 a3,3 0 0 1 3,-3 z" />
+
+    <!-- Telo listka -->
+    <path
+        android:fillColor="@color/ic_launcher_foreground_fill"
+        android:pathData="M38,30 h32 a6,6 0 0 1 6,6 v36 a6,6 0 0 1 -6,6 h-32 a6,6 0 0 1 -6,-6 v-36 a6,6 0 0 1 6,-6 z" />
+
+    <!-- Farebny pruh hlavicky: zaoblene len horne rohy, spodok rovny.
+         Vyska 16 (30..46) je taka, aby sa don zmestilo pismo vysky 8. -->
+    <path
+        android:fillColor="@color/ic_launcher_den"
+        android:pathData="M38,30 h32 a6,6 0 0 1 6,6 v10 h-44 v-10 a6,6 0 0 1 6,-6 z" />
+
+    <!-- "FEB" v hlavicke. Vyska pisma 8 (34..42), tah 2,2. -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/ic_launcher_foreground_fill"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M41.5,42 L41.5,34 L47,34" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/ic_launcher_foreground_fill"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:pathData="M41.5,38.2 L46,38.2" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/ic_launcher_foreground_fill"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M55.5,34 L50,34 L50,42 L55.5,42" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/ic_launcher_foreground_fill"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:pathData="M50,38.2 L54.6,38.2" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/ic_launcher_foreground_fill"
+        android:strokeWidth="2.2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M58.5,42 L58.5,34 L61.4,34 C63.6,34 63.6,38.2 61.4,38.2 L58.5,38.2 L61.8,38.2 C64.1,38.2 64.1,42 61.8,42 Z" />
+
+    <!-- "31" v tele listka. Vyska pisma 20 (52..72), tah 4.
+         Ink je 44..64, teda opticky na stred plochy pod hlavickou. -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/ic_launcher_den"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M45.5,54.5 C46.5,52.2 55,52 55,57 C55,61 51.5,62 50,62" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/ic_launcher_den"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M50,62 C51.5,62 55.5,62.6 55.5,67 C55.5,71.6 48,72.6 45.5,70" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/ic_launcher_den"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M58,55.5 L62,52 L62,72" />
+</vector>
