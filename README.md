@@ -10,6 +10,21 @@ No ads, no account. It goes to the network only to check for its own update.
 
 Android · Kotlin · home-screen widget · minSdk 26 · Kotlin + Python tests
 
+## What it looks like
+
+| Today and the days after | The people I watch | Settings |
+|---|---|---|
+| <img src="docs/screenshots/today.png" alt="Today's name day and the following days, with the meaning of each name" width="240"> | <img src="docs/screenshots/people.png" alt="Four people with their name day and birthday, nearest first" width="240"> | <img src="docs/screenshots/settings.png" alt="Reminder time, appearance and font size" width="240"> |
+
+Every day carries the meaning and origin of the name and the international days
+that fall on it. The people I watch are marked in the orange column on the
+right, so the list answers "is it anyone of mine?" without opening anything.
+They are sorted by the nearest celebration, not alphabetically — whoever is
+celebrating tomorrow is at the top, not in the middle.
+
+The interface is Slovak; so is the calendar. The four people in the screenshot
+are made up.
+
 ## How it works
 
 The calendar is shipped **inside the APK as an asset**, not downloaded. It
