@@ -29,6 +29,7 @@
     <color name="pole_pozadie">#0E0E0E</color>
     <color name="ciara">#262626</color>
     <color name="dnes_pozadie">#1A1030</color>
+    <color name="dnes_datum">#2DD4BF</color>
 
     <color name="ver_text">#9CA3AF</color>
     <color name="ver_warn">#FBBF24</color>

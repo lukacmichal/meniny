@@ -1,7 +1,8 @@
 # Meniny — slovenský kalendár menín s widgetom
 
-Appka na vlastnú potrebu, bez reklamy. Ukáže, kto má dnes meniny, koho čakajú
-najbližšie dni, a mená sa dajú vyhľadať. Widget na ploche ukazuje dnešok
+Appka na vlastnú potrebu, bez reklamy. Ukáže, kto má dnes meniny, kto ich mal
+a koho čakajú — zoznam sa otvorí na dnešku a roluje sa rok dozadu aj dopredu —
+a mená sa dajú vyhľadať. Widget na ploche ukazuje dnešok
 a toľko ďalších dní, koľko sa doň zmestí. Vybraných ľudí — meniny aj
 narodeniny — vie appka raz denne pripomenúť upozornením.
 
@@ -69,7 +70,7 @@ je na tomto stroji stabilný, takže OTA na už nainštalovaných telefónoch pr
 ## Testy
 
 ```bash
-cd C:\NAS\meniny && .\gradlew testDebugUnitTest     # 24 testov (Kotlin)
+cd C:\NAS\meniny && .\gradlew testDebugUnitTest     # 34 testov (Kotlin)
 cd C:\NAS\meniny\data && python -m pytest -q        # 15 testov (Python)
 ```
 

@@ -21,24 +21,28 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import java.time.LocalDate
 
 /**
- * Hlavna obrazovka: od dnesneho dna dopredu, s vyhladavanim.
+ * Hlavna obrazovka: rok dozadu aj dopredu, otvori sa na dnesku; s vyhladavanim.
  *
  * Vsetko je offline nad assetom — ziadne sietove volanie tu nie je okrem
  * kontroly novej verzie v paticke.
  */
 class MainActivity : ZakladActivity() {
 
-    /** Kolko dni dopredu sa ukaze v zakladnom zozname. */
-    private val dniDopredu = 120
-
     private lateinit var data: MeninyData
     private lateinit var zoznam: RecyclerView
+    private lateinit var rozlozenie: LinearLayoutManager
     private lateinit var prazdne: TextView
     private lateinit var adapter: Adapter
     private lateinit var potiahni: SwipeRefreshLayout
 
     /** Sledovani ludia; nacitavaju sa v onResume, lebo sa menia na inej obrazovke. */
     private var ludia: List<Oslavenec> = emptyList()
+
+    /**
+     * Den, okolo ktoreho je postaveny zakladny zoznam. Kto sa do appky vrati
+     * az na druhy den, chce vidiet novy dnesok, nie miesto, kde vcera skoncil.
+     */
+    private var zoznamPre: LocalDate? = null
 
 
     /** Nastavenia sa mozu vratit s prosbou skontrolovat aktualizaciu hned. */
@@ -58,7 +62,8 @@ class MainActivity : ZakladActivity() {
         zoznam = findViewById(R.id.zoznam)
         prazdne = findViewById(R.id.prazdne)
         adapter = Adapter()
-        zoznam.layoutManager = LinearLayoutManager(this)
+        rozlozenie = LinearLayoutManager(this)
+        zoznam.layoutManager = rozlozenie
         zoznam.adapter = adapter
 
         val pole: EditText = findViewById(R.id.hladanie)
@@ -78,6 +83,9 @@ class MainActivity : ZakladActivity() {
         // Potiahnutie dole = obnov. Meniny sa nesťahujú (sú v APK), takže sa
         // prekreslí dnešok a pri tej príležitosti sa pozrie na NAS, či nie je
         // nová verzia — gesto je vo všetkých appkách rovnaké (docs/shared-standard.md 2.6).
+        // Od 1.18 je nad dneškom rok dozadu, takže ťah dole z dneška roluje do
+        // minulosti a gesto zaberie až na začiatku zoznamu. Ikona ↻ robí to isté
+        // odkiaľkoľvek a vráti zoznam na dnešok.
         potiahni = findViewById(R.id.potiahni)
         potiahni.setOnRefreshListener { obnov() }
 
@@ -191,9 +199,6 @@ class MainActivity : ZakladActivity() {
         Thread {
             val ciel = ApkInstaller.downloadTarget(this, cfg.apkFileName)
             val apk = runCatching { SmbUpdater.download(cfg, ciel) }.getOrNull()
-            // Najvacsi jednorazovy prenos, aky appka spravi — bez toho by
-            // pocitadlo mlcalo prave o tych megabajtoch, na ktorych zalezi.
-            if (apk != null) Prenos.zapis(this, apk.length())
             runOnUiThread {
                 if (isFinishing || isDestroyed) return@runOnUiThread
                 if (apk == null) {
@@ -253,18 +258,21 @@ class MainActivity : ZakladActivity() {
         ludia = Prefs.oslavenci(this)
         ukaz(
             findViewById<EditText>(R.id.hladanie).text?.toString().orEmpty(),
-            naVrch = false,
+            naVrch = zoznamPre != LocalDate.now(),
         )
     }
 
     /**
-     * Prekresli zoznam. [naVrch] = posunut na zaciatok — pri zmene dopytu ano
-     * (novy vysledok sa ma zacat citat zhora), po pridani oslavenca alebo po
-     * navrate z inej obrazovky nie: clovek by prisiel o miesto, kde bol.
+     * Prekresli zoznam. [naVrch] = posunut na zaciatok — v zakladnom zozname
+     * na dnesok, pri hladani na prvy vysledok. Pri zmene dopytu ano (novy
+     * vysledok sa ma zacat citat zhora), po pridani oslavenca alebo po navrate
+     * z inej obrazovky nie: clovek by prisiel o miesto, kde bol.
      */
     private fun ukaz(dopyt: String, naVrch: Boolean = true) {
+        val dnes = LocalDate.now()
         val polozky = if (dopyt.isBlank()) {
-            data.odDatumu(LocalDate.now(), dniDopredu)
+            zoznamPre = dnes
+            data.rokOkolo(dnes)
                 .mapNotNull { (datum, den) -> den?.let { Polozka(datum, it, null) } }
         } else {
             data.hladaj(dopyt).map { (den, meno) -> Polozka(datumPre(den), den, meno) }
@@ -272,7 +280,15 @@ class MainActivity : ZakladActivity() {
         adapter.nastav(polozky)
         prazdne.visibility = if (polozky.isEmpty()) View.VISIBLE else View.GONE
         zoznam.visibility = if (polozky.isEmpty()) View.GONE else View.VISIBLE
-        if (polozky.isNotEmpty() && naVrch) zoznam.scrollToPosition(0)
+        if (polozky.isNotEmpty() && naVrch) {
+            // Nad dneskom je rok dozadu — zoznam sa otvara na dnesku navrchu,
+            // nie na jeho zaciatku. scrollToPosition by dnesok len vytiahol
+            // na spodny okraj obrazovky.
+            val zaciatok = if (dopyt.isBlank()) {
+                polozky.indexOfFirst { !it.datum.isBefore(dnes) }.coerceAtLeast(0)
+            } else 0
+            rozlozenie.scrollToPositionWithOffset(zaciatok, 0)
+        }
     }
 
     /**
@@ -404,7 +420,7 @@ class MainActivity : ZakladActivity() {
             /**
              * Dnesny riadok dostane pruh vlavo, jemne pozadie a farebny datum.
              *
-             * Text "Dnes ·" v datume sam nestaci: v zozname 120 dni po sebe
+             * Text "Dnes ·" v datume sam nestaci: v zozname dvoch rokov po sebe
              * vyzeraju vsetky riadky rovnako a oko sa nema coho chytit.
              * Padding sa nastavuje znova, lebo setBackgroundResource ho vie
              * prepisat podla pozadia.

@@ -43,8 +43,17 @@ android {
         // 1.12 (13) — ponuka novej verzie ma nadpis a hovori aj to, co mas
         // TERAZ (docs/shared-standard.md 2.6 §2). Bez druheho cisla sa z ponuky nedalo
         // poznat, ci je skok o jednu verziu alebo o pat.
-        versionCode = 13
-        versionName = "1.12"
+        // 1.13 (14) — dnesny den v zozname APPKY v jednom riadku. Omyl:
+        // zadanie myslelo widget, appka je v 1.14 zase po starom.
+        // 1.14 (15) — dnesok vo WIDGETE v jednom riadku ("Dnes 18. oktobra
+        // Lukas"), vacsie meno a podfarbeny pasik s fialovym pruhom.
+        // 1.15 (16) — "Dnes 18. oktobra" vo widgete vacsie (20sp namiesto 15sp),
+        // tucne a tyrkysove namiesto maleho sivoho.
+        // 1.17 (28. 10. 2026, APPKY-4): pocitadlo dat z Androidu.
+        // 1.18 (2. 11. 2026, MENINY-7): zoznam v appke rok dozadu aj dopredu,
+        // otvori sa na dnesku. Do vtedy dnes + 120 dni, vcerajsok sa nedal pozriet.
+        versionCode = 19
+        versionName = "1.18"
 
         buildConfigField("String", "NAS_HOST", nasField("NAS_HOST"))
         buildConfigField("String", "NAS_SHARE", nasField("NAS_SHARE"))

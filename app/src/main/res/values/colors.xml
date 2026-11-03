@@ -31,4 +31,8 @@
     <color name="pole_pozadie">#F3F4F6</color>
     <color name="ciara">#E5E7EB</color>
     <color name="dnes_pozadie">#F5F3FF</color>
+
+    <!-- "Dnes 18. oktobra" pred menom vo widgete. Tyrkysova, nie jantarova:
+         jantarova patri oslavencovi, ktory je na tom istom pasiku hned pod nim. -->
+    <color name="dnes_datum">#0F766E</color>
 </resources>

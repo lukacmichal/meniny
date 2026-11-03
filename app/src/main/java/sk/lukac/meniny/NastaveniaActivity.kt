@@ -186,11 +186,12 @@ class NastaveniaActivity : ZakladActivity() {
         // strings.xml by sa rozislo uz pri prvej oprave preklepu.
         f.ciara()
         f.nadpis(Prenos.NADPIS)
-        val stavPrenosu = f.stav(Prenos.popis(this))
+        val stavPrenosu = f.stav(Prenos.NACITAVAM)
+        Prenos.nacitaj(this) { stavPrenosu.text = Prenos.popis(it) }
         f.poznamka(Prenos.POZNAMKA)
         f.tlacidlo(Prenos.VYNULOVAT) {
-            Prenos.vynuluj(this)
-            stavPrenosu.text = Prenos.popis(this)
+            stavPrenosu.text = Prenos.NACITAVAM
+            Prenos.vynuluj(this) { stavPrenosu.text = Prenos.popis(it) }
         }
 
         f.ciara()

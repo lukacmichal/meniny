@@ -13,6 +13,11 @@
 
   Dnesok ostava NAD zoznamom a neroluje sa s nim: widget je predovsetkym o tom,
   kto ma meniny dnes, a to nema odrolovat prec.
+
+  **Dnesok je JEDEN riadok** (18. 10. 2026): "Dnes 18. oktobra  Lukas" na
+  podfarbenom pasiku s fialovym pruhom vlavo — ako dnesny riadok v appke.
+  Predtym bol hore sivy riadok s datumom a meno az pod nim. Farby pasika
+  a pruhu nastavuje provider (podla rezimu appky), preto pruh nie je drawable.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/w_koren"
@@ -22,49 +27,60 @@
     android:padding="10dp"
     android:background="@color/widget_pozadie">
 
-    <TextView
-        android:id="@+id/w_dnes_datum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:textAllCaps="true"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textColor="@color/text_vedlajsi" />
+    <!--
+      Dnesok: pruh, "Dnes 18. oktobra" + mena v jednom texte, pod nimi vpravo
+      oslavenec. Pruh je ImageView, nie View — holy View RemoteViews nepovolia.
 
-    <!-- Dnesok: mena vlavo, oslavenec vpravo — rovnako ako v zozname appky. -->
+      Oslavenec je v DRUHOM riadku pasika, nie vedla mien ako v zozname: vedla
+      by na beznom widgete zobral polovicu sirky a datum s menom by sa lamali
+      aj uprostred slova ("18. o / kto…") — overene na snimke 18. 10. 2026.
+    -->
     <LinearLayout
+        android:id="@+id/w_dnes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:baselineAligned="false"
-        android:gravity="center_vertical">
+        android:background="@color/dnes_pozadie">
 
-        <TextView
-            android:id="@+id/w_dnes_mena"
+        <ImageView
+            android:id="@+id/w_dnes_pruh"
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/zvyraznenie"
+            android:contentDescription="@null" />
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textColor="@color/zvyraznenie" />
+            android:orientation="vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="8dp"
+            android:paddingVertical="6dp">
 
-        <TextView
-            android:id="@+id/w_dnes_oslavenci"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:maxWidth="150dp"
-            android:gravity="end"
-            android:textAlignment="viewEnd"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:visibility="gone"
-            android:textColor="@color/oslava" />
+            <TextView
+                android:id="@+id/w_dnes_mena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:maxLines="4"
+                android:ellipsize="end"
+                android:textColor="@color/zvyraznenie" />
+
+            <TextView
+                android:id="@+id/w_dnes_oslavenci"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textAlignment="viewEnd"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:visibility="gone"
+                android:textColor="@color/oslava" />
+        </LinearLayout>
     </LinearLayout>
 
     <TextView

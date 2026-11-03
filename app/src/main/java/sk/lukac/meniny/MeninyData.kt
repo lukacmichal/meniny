@@ -2,6 +2,7 @@ package sk.lukac.meniny
 
 import org.json.JSONObject
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import java.text.Normalizer
 
 /**
@@ -59,6 +60,22 @@ class MeninyData(dni: List<Den>) {
      */
     fun odDatumu(datum: LocalDate, dni: Int): List<Pair<LocalDate, Den?>> =
         (0 until dni).map { datum.plusDays(it.toLong()).let { d -> d to preDatum(d) } }
+
+    /**
+     * Rok dozadu aj dopredu okolo [datum], oba konce vratane — zoznam v appke.
+     *
+     * Do 1.17 sa zoznam zacinal dneskom a koncil o 120 dni (v novembri teda
+     * v marci): vcerajsie meniny sa v appke pozriet nedali, hoci widget
+     * ukazoval cely rok dopredu.
+     *
+     * Hranice su "ten isty den pred rokom" a "o rok", nie pevnych 365 dni:
+     * rok cez 29. februar ma 366 dni a pevne cislo by z neho den ukrojilo.
+     */
+    fun rokOkolo(datum: LocalDate): List<Pair<LocalDate, Den?>> {
+        val od = datum.minusYears(1)
+        val pocet = ChronoUnit.DAYS.between(od, datum.plusYears(1)).toInt() + 1
+        return odDatumu(od, pocet)
+    }
 
     /**
      * Den menin daneho mena ako "MM-DD", alebo null ked take meno v kalendari

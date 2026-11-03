@@ -15,10 +15,17 @@ import java.time.LocalDate
  */
 object Datumy {
 
-    /** "Dnes · utorok 18. augusta" — pre zoznam aj pre widget. */
+    /**
+     * "Dnes · utorok 18. augusta" — riadok zoznamu v appke.
+     *
+     * Zoznam siaha rok dozadu aj dopredu, teda cez tri kalendarne roky. Mimo
+     * tohto roka sa preto pripise aj rok ("nedela 2. novembra 2025"), inak by
+     * sa minuly november nedal odlisit od buduceho.
+     */
     fun popis(ctx: Context, datum: LocalDate): String {
         val relativne = relativne(ctx, datum)
-        val zaklad = "${denVTyzdni(ctx, datum)} ${kratky(ctx, datum)}"
+        val rok = if (datum.year == LocalDate.now().year) "" else " ${datum.year}"
+        val zaklad = "${denVTyzdni(ctx, datum)} ${kratky(ctx, datum)}$rok"
         return if (relativne == null) zaklad else "$relativne · $zaklad"
     }
 
@@ -31,10 +38,11 @@ object Datumy {
     fun denVTyzdni(ctx: Context, datum: LocalDate): String =
         ctx.resources.getStringArray(R.array.dni_v_tyzdni)[datum.dayOfWeek.value - 1]
 
-    /** "Dnes" / "Zajtra", inak null. */
+    /** "Vcera" / "Dnes" / "Zajtra", inak null. */
     fun relativne(ctx: Context, datum: LocalDate): String? {
         val dnes = LocalDate.now()
         return when (datum) {
+            dnes.minusDays(1) -> ctx.getString(R.string.vcera)
             dnes -> ctx.getString(R.string.dnes)
             dnes.plusDays(1) -> ctx.getString(R.string.zajtra)
             else -> null

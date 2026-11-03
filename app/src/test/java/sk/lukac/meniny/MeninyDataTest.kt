@@ -108,6 +108,28 @@ class MeninyDataTest {
     }
 
     @Test
+    fun zoznamVAppkeJeRokDozaduADopredu() {
+        // Do 1.17 sa zoznam zacinal dneskom a koncil o 120 dni — vcerajsie
+        // meniny sa v appke pozriet nedali.
+        val dnes = LocalDate.of(2026, 11, 2)
+        val rad = data.rokOkolo(dnes)
+        assertEquals(LocalDate.of(2025, 11, 2), rad.first().first)
+        assertEquals(LocalDate.of(2027, 11, 2), rad.last().first)
+        assertEquals(365 + 365 + 1, rad.size)
+        assertEquals(dnes.minusDays(1), rad[364].first)
+        assertEquals(dnes, rad[365].first)
+        assertTrue("bez 29. februara sa najde kazdy den", rad.all { it.second != null })
+    }
+
+    @Test
+    fun rokOkoloCezPriestupnyRokNeukrojiDen() {
+        // Od 2. 11. 2027 o rok dopredu je aj 29. februar 2028.
+        val rad = data.rokOkolo(LocalDate.of(2027, 11, 2))
+        assertEquals(365 + 366 + 1, rad.size)
+        assertEquals(LocalDate.of(2028, 11, 2), rad.last().first)
+    }
+
+    @Test
     fun prelomRokaNeprepadne() {
         // Po 31. decembri ma nasledovat 1. januar, nie koniec zoznamu.
         val rad = data.odDatumu(LocalDate.of(2026, 12, 30), 4)

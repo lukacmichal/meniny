@@ -3,6 +3,7 @@
     <string name="app_name">Meniny</string>
 
     <string name="hladaj">Hľadať meno…</string>
+    <string name="vcera">Včera</string>
     <string name="dnes">Dnes</string>
     <string name="zajtra">Zajtra</string>
     <string name="ziadne_meno">V tento deň nikto nemá meniny</string>

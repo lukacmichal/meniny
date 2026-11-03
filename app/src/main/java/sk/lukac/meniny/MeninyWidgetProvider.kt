@@ -6,12 +6,19 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.ContextCompat
+import androidx.core.text.bold
+import androidx.core.text.buildSpannedString
+import androidx.core.text.inSpans
 import java.time.LocalDate
 
 /**
@@ -68,9 +75,11 @@ class MeninyWidgetProvider : AppWidgetProvider() {
 
     companion object {
 
-        // Zakladne velkosti pisma hlavicky (sp) — rovnake ako v layoute.
-        private const val SP_DATUM = 13f
-        private const val SP_MENA = 22f
+        // Zakladne velkosti pisma hlavicky (sp). SP_MENA je textSize
+        // w_dnes_mena v layoute, SP_DATUM je "Dnes 18. oktobra" pred menami
+        // v tom istom texte (RelativeSizeSpan).
+        private const val SP_DATUM = 20f
+        private const val SP_MENA = 26f
         private const val SP_OSLAVENEC = 14f
 
         fun prekresliVsetky(ctx: Context) {
@@ -82,6 +91,17 @@ class MeninyWidgetProvider : AppWidgetProvider() {
         }
 
         private fun prekresli(ctx: Context, manager: AppWidgetManager, id: Int) {
+            manager.updateAppWidget(id, postav(ctx, id))
+            // Bez tohto by launcher kreslil to, co mal odlozene — obsah
+            // kolekcie si sam od seba neoveruje.
+            manager.notifyAppWidgetViewDataChanged(id, R.id.w_dni)
+        }
+
+        /**
+         * Cely widget, ale bez odoslania launcheru. Zvlast preto, aby sa dal
+         * nafuknut a odfotit v emulatore, kde sa launcher nerozbehne.
+         */
+        internal fun postav(ctx: Context, id: Int): RemoteViews {
             val data = MeninyRepo.data(ctx)
             val ludia = Prefs.oslavenci(ctx)
             val v = RemoteViews(ctx.packageName, R.layout.widget_meniny)
@@ -93,31 +113,33 @@ class MeninyWidgetProvider : AppWidgetProvider() {
             // widget. Preto sa tu nastavuju vyslovne.
             val tema = Vzhlad.temaKontext(ctx)
             val tlmena = ContextCompat.getColor(tema, R.color.text_vedlajsi)
+            val fialova = ContextCompat.getColor(tema, R.color.zvyraznenie)
             v.setInt(R.id.w_koren, "setBackgroundColor",
                 ContextCompat.getColor(tema, R.color.widget_pozadie))
-            v.setTextColor(R.id.w_dnes_datum, tlmena)
+            v.setInt(R.id.w_dnes, "setBackgroundColor",
+                ContextCompat.getColor(tema, R.color.dnes_pozadie))
+            v.setInt(R.id.w_dnes_pruh, "setBackgroundColor", fialova)
             v.setTextColor(R.id.w_prazdno, tlmena)
-            v.setTextColor(R.id.w_dnes_mena,
-                ContextCompat.getColor(tema, R.color.zvyraznenie))
+            v.setTextColor(R.id.w_dnes_mena, fialova)
             v.setTextColor(R.id.w_dnes_oslavenci,
                 ContextCompat.getColor(tema, R.color.oslava))
 
             // Velkost pisma sa widgetu musi povedat CISLOM — `fontScale`
             // z kontextu appky RemoteViews nepocuvaju, kresli ich launcher.
             val faktor = Vzhlad.faktorWidgetu(ctx)
-            v.setTextViewTextSize(R.id.w_dnes_datum, TypedValue.COMPLEX_UNIT_SP,
-                SP_DATUM * faktor)
             v.setTextViewTextSize(R.id.w_dnes_mena, TypedValue.COMPLEX_UNIT_SP,
                 SP_MENA * faktor)
             v.setTextViewTextSize(R.id.w_dnes_oslavenci, TypedValue.COMPLEX_UNIT_SP,
                 SP_OSLAVENEC * faktor)
 
             val dnesnyDen = data.preDatum(dnes)
-            v.setTextViewText(R.id.w_dnes_datum, Datumy.popis(ctx, dnes))
             v.setTextViewText(
                 R.id.w_dnes_mena,
-                dnesnyDen?.menaSpolu?.ifBlank { null }
-                    ?: ctx.getString(R.string.ziadne_meno),
+                dnesnyRiadok(
+                    ctx, dnes, ContextCompat.getColor(tema, R.color.dnes_datum),
+                    dnesnyDen?.menaSpolu?.ifBlank { null }
+                        ?: ctx.getString(R.string.ziadne_meno),
+                ),
             )
 
             // Kto z mojich dnes slavi — kvoli tomu widget vobec je.
@@ -150,14 +172,48 @@ class MeninyWidgetProvider : AppWidgetProvider() {
             )
             // Klepnutie na dnesok otvori appku. Na koren sa to dat NEDA —
             // prebilo by to rolovanie zoznamu pod nim.
-            v.setOnClickPendingIntent(R.id.w_dnes_datum, doAppky)
-            v.setOnClickPendingIntent(R.id.w_dnes_mena, doAppky)
+            v.setOnClickPendingIntent(R.id.w_dnes, doAppky)
             v.setPendingIntentTemplate(R.id.w_dni, doAppky)
+            return v
+        }
 
-            manager.updateAppWidget(id, v)
-            // Bez tohto by launcher kreslil to, co mal odlozene — obsah
-            // kolekcie si sam od seba neoveruje.
-            manager.notifyAppWidgetViewDataChanged(id, R.id.w_dni)
+        /**
+         * "Dnes 18. oktobra  Lukas" v jednom texte (18. 10. 2026).
+         *
+         * Predtym bol nad menom samostatny sivy riadok "DNES · NEDELA
+         * 18. OKTOBRA". Datum je teraz pred menami, tucny a tyrkysovy
+         * (`dnes_datum`), mena este vacsie a fialove — farbou sa od seba
+         * odlisia aj v jednom riadku. V 1.14 bol datum 15sp a sivy; to bolo
+         * "zase male", preto 1.15 ma 20sp a vyraznu farbu.
+         * Den v tyzdni chyba zamerne: dnes ho kazdy vie a bez neho sa do
+         * riadku zmestia aj dve mena.
+         *
+         * Medzera v "18. oktobra" je nezlomitelna: na uzkom widgete sa text
+         * zalomi za "Dnes" alebo pred menami, nie medzi dnom a mesiacom.
+         * Za "Dnes" je obycajna — keby bol cely datum jedno slovo, v uzkom
+         * stlpci by ho Android rozsekal uprostred ("18. o / kto…").
+         * Spany RemoteViews prenesu, lebo su ParcelableSpan (farba, velkost,
+         * tucne).
+         */
+        private fun dnesnyRiadok(
+            ctx: Context,
+            dnes: LocalDate,
+            farbaDatumu: Int,
+            mena: String,
+        ): CharSequence {
+            val datum = ctx.getString(R.string.dnes) + " " +
+                Datumy.kratky(ctx, dnes).replace(' ', '\u00A0')
+            return buildSpannedString {
+                inSpans(
+                    ForegroundColorSpan(farbaDatumu),
+                    RelativeSizeSpan(SP_DATUM / SP_MENA),
+                    StyleSpan(Typeface.BOLD),
+                ) {
+                    append(datum)
+                    append("  ")
+                }
+                bold { append(mena) }
+            }
         }
     }
 }
